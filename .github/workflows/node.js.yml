@@ -21,6 +21,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
+    - run: git fetch --all --unshallow
     - name: Deploy to Heroku
       env:
         HEROKU_TOKEN: ${{secrets.HEROKU_TOKEN}}
