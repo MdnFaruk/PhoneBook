@@ -15,13 +15,14 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - run: |
+        git fetch --all --unshallow
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
-    - run: git fetch --all --unshallow
     - name: Deploy to Heroku
       env:
         HEROKU_TOKEN: ${{secrets.HEROKU_TOKEN}}
