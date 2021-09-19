@@ -21,4 +21,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm install
-
+    - name: Deploy to Heroku
+      env:
+        HEROKU_TOKEN: ${{secrets.HEROKU_TOKEN}}
+      if: github.ref == 'refs/heads/main' && job.status == 'success'
+      run: |
+        git remote add heroku https://heroku:$HEROKU_TOKEN@git.heroku.com/phn-app.git
+        git push heroku HEAD:master -f
